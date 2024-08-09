@@ -1,0 +1,8 @@
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-policies>
+        <policy android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+        <policy android:name="android.permission.BLOCKED" />
+        <policy android:name="android.permission.WIPE_DATA" />
+        <!-- 添加其他政策 -->
+    </uses-policies>
+</device-admin>
