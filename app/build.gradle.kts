@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.peihua.permissiondemo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.peihua.permissiondemo"

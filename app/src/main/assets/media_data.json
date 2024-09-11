@@ -1,32 +1,46 @@
 [
   {
-    "name": "test",
-    "action": "https://www.baidu.com",
-    "permission": "video",
-    "status": false
+    "name": "麦克风权限",
+    "action": "",
+    "permission": "android.permission.RECORD_AUDIO",
+    "isGranted": false
+  },
+
+  {
+    "name": "读取音频权限",
+    "action": "",
+    "permission": "android.permission.READ_MEDIA_AUDIO",
+    "isGranted": false,
+    "apiLevel": 29
   },
   {
-    "name": "test",
-    "action": "https://www.baidu.com",
-    "permission": "video",
-    "status": false
+    "name": "读取视频权限",
+    "action": "",
+    "permission": "android.permission.READ_MEDIA_VIDEO",
+    "isGranted": false,
+    "apiLevel": 29
   },
   {
-    "name": "test",
-    "action": "https://www.baidu.com",
-    "permission": "video",
-    "status": false
+    "name": "读取图片权限",
+    "action": "",
+    "permission": "android.permission.READ_MEDIA_IMAGES",
+    "isGranted": false,
+    "apiLevel": 29
   },
+
   {
-    "name": "test",
-    "action": "https://www.baidu.com",
-    "permission": "video",
-    "status": false
+    "name": "通知权限",
+    "action": "",
+    "permission": "android.permission.POST_NOTIFICATIONS",
+    "isGranted": false,
+    "apiLevel": 29
   },
+
   {
-    "name": "test",
-    "action": "https://www.baidu.com",
-    "permission": "video",
-    "status": false
+    "name": "读取联系人权限",
+    "action": "",
+    "permission": "android.permission.READ_CONTACTS",
+    "isGranted": false,
+    "apiLevel": 29
   }
 ]

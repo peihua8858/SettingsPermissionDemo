@@ -1,0 +1,135 @@
+[
+  {
+    "name": "所有文件访问权限",
+    "isSpecial":true,
+    "action": "android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
+    "permission": "android.permission.MANAGE_EXTERNAL_STORAGE",
+    "isGranted": false
+  },
+  {
+    "name": "设备管理权限",
+    "action": "android.app.action.ADD_DEVICE_ADMIN",
+    "permission": "android.permission.BIND_DEVICE_ADMIN",
+    "isGranted": false,
+    "isSpecial":true,
+    "apiLevel": 29
+  },
+  {
+    "name": "显示在其他应用的上层权限(悬浮窗权限)",
+    "action": "android.settings.action.MANAGE_OVERLAY_PERMISSION",
+    "permission": "android.permission.SYSTEM_ALERT_WINDOW",
+    "isGranted": false,
+    "isSpecial":true,
+    "apiLevel": 29
+  },
+  {
+    "name": "“勿扰”权限",
+    "action": "android.settings.NOTIFICATION_POLICY_ACCESS_SETTINGS",
+    "isSpecial":true,
+    "permission": "android.permission.ACCESS_NOTIFICATION_POLICY",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "媒体管理权限",
+    "isSpecial":true,
+    "action": "android.settings.REQUEST_MANAGE_MEDIA",
+    "permission": "android.permission.MANAGE_MEDIA",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "修改系统设置权限",
+    "isSpecial":true,
+    "action": "android.settings.action.MANAGE_WRITE_SETTINGS",
+    "permission": "android.permission.WRITE_SETTINGS",
+    "isGranted": false
+  },
+  {
+    "name": "设备和应用通知权限",
+    "isSpecial":true,
+    "action": "android.settings.NOTIFICATION_LISTENER_DETAIL_SETTINGS",
+    "permission": "android.permission.BIND_NOTIFICATION_LISTENER_SERVICE",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "画中画权限",
+    "isSpecial":true,
+    "action": "android.settings.PICTURE_IN_PICTURE_SETTINGS",
+    "permission": "",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "付费短信权限",
+    "isSpecial":true,
+    "action": "android.settings.PREMIUM_SMS_SETTINGS",
+    "permission": "",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "不受流量限制",
+    "isSpecial":true,
+    "action": "android.settings.DATA_ROAMING_SETTINGS",
+    "permission": "",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "安装未知应用的权限",
+    "action": "android.settings.MANAGE_UNKNOWN_APP_SOURCES",
+    "permission": "android.permission.REQUEST_INSTALL_PACKAGES",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "闹钟和提醒权限",
+    "action": "android.settings.REQUEST_SCHEDULE_EXACT_ALARM",
+    "isSpecial":true,
+    "permission": "android.permission.SCHEDULE_EXACT_ALARM",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "使用情况访问权限",
+    "action": "android.settings.USAGE_ACCESS_SETTINGS",
+    "isSpecial":true,
+    "permission": "android.permission.PACKAGE_USAGE_STATS",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "VR 助手服务",
+    "action": "android.settings.VR_LISTENER_SETTINGS",
+    "permission": "android.permission.BIND_VR_LISTENER_SERVICE",
+    "isGranted": false,
+    "isSpecial":true,
+    "apiLevel": 29
+  },
+  {
+    "name": "WLAN 控制权限",
+    "action": "android.settings.action.MANAGE_WRITE_SETTINGS",
+    "isSpecial":true,
+    "permission": "android.permission.CHANGE_WIFI_STATE",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "开启屏幕权限",
+    "action": "android.settings.TURN_SCREEN_ON_SETTINGS",
+    "isSpecial":true,
+    "permission": "android.permission.TURN_SCREEN_ON",
+    "isGranted": false,
+    "apiLevel": 29
+  },
+  {
+    "name": "全屏通知权限",
+    "isSpecial":true,
+    "action": "android.settings.MANAGE_APP_USE_FULL_SCREEN_INTENT",
+    "permission": "android.permission.USE_FULL_SCREEN_INTENT",
+    "isGranted": false,
+    "apiLevel": 29
+  }
+]
