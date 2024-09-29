@@ -35,26 +35,32 @@ class MainActivity : AppCompatActivity() {
     private var curPosition = -1
     private val mAdapter = GreetingAdapter { view, item, position ->
         val permission = item.permission
+        val action= item.action
         val checkPermission = item.hasPermission
         if (checkPermission != null && checkPermission(this)) {
             showToast("已经授予${permission}权")
             notificationPosition(position)
         } else {
-            if (permission.isNotEmpty() && !hasPermission(permission)) {
-                requestPermissionsDsl(permission) {
-                    onDenied {
-                        startActivity(item)
-                    }
-                    onNeverAskAgain {
-                        startActivity(item)
-                    }
-                    onGranted {
-                        showToast("已授权")
-                        notificationPosition(position)
-                    }
-                }
-            } else {
+            if (action.isNotEmpty()) {
                 startActivity(item)
+            }else{
+                if (permission.isNotEmpty() && !hasPermission(permission)) {
+                    requestPermissionsDsl(permission) {
+                        onDenied {
+                            startActivity(item)
+                        }
+                        onNeverAskAgain {
+                            startActivity(item)
+                        }
+                        onGranted {
+                            showToast("已授权")
+                            notificationPosition(position)
+                        }
+                    }
+                } else {
+                    startActivity(item)
+                }
+
             }
 
         }
@@ -202,7 +208,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun startActivity(action: String) {
+    private fun startActivity(action: String) {
+        if (action.isEmpty()) {
+            startAppSettings()
+            return
+        }
         val intent = Intent(action)
         intent.data = Uri.parse("package:$packageName")
         try {
