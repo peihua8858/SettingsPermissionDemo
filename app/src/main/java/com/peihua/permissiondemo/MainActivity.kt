@@ -195,7 +195,9 @@ class MainActivity : AppCompatActivity() {
                 callback()
             } catch (e: Exception) {
                 showToast(e.message ?: "启动失败")
-                startAppSettings()
+                if (itemData.isJumpDetail) {
+                    startAppSettings()
+                }
             }
         } else {
             startActivity(itemData.action)
