@@ -1,5 +1,11 @@
 [
   {
+    "name": "相机权限",
+    "action": "",
+    "permission": "android.permission.CAMERA",
+    "isGranted": false
+  },
+  {
     "name": "麦克风权限",
     "action": "",
     "permission": "android.permission.RECORD_AUDIO",

@@ -4,6 +4,7 @@ import android.app.AppOpsManager
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.PowerManager
 import android.os.Process
 import android.util.Log
 import android.view.View
@@ -11,9 +12,9 @@ import androidx.core.content.ContextCompat
 import com.fz.common.array.isNonEmpty
 import java.util.Objects
 
-//fun Context.checkPermission(permission: String): Boolean {
-//    return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
-//}
+fun Context.checkPermissionCompat(permission: String): Boolean {
+    return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+}
 fun View.checkPermission(permission: String): Boolean {
     return ContextCompat.checkSelfPermission(
         this.context,
@@ -113,3 +114,6 @@ class PermissionState(val packInfo: PackageInfo, val packageName: String) {
             return appOpMode == AppOpsManager.MODE_ALLOWED
         }
 }
+
+val Context.powerManager: PowerManager
+    get() = getSystemService(Context.POWER_SERVICE) as PowerManager

@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <!--  使用情况访问权限  -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-<!--    <uses-permission android:name="android.permission.LOADER_USAGE_STATS" />-->
+    <!--    <uses-permission android:name="android.permission.LOADER_USAGE_STATS" />-->
     <!--    <uses-permission android:name="android.permission.IGNORE_BATTERY_OPTIMIZATIONS" />-->
     <!--    <uses-permission android:name="android.permission.REALITY_TUNER" />-->
     <!--  勿扰权限  -->
@@ -34,7 +34,7 @@
     <!--   显示屏幕，用于控制应用是否可以发送全屏-->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <!--  开启屏幕  -->
-        <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.TURN_SCREEN_ON" />
     <!--  通知权限  -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -121,7 +121,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-
+    <uses-permission android:name="android.permission.ACCESS_RESTRICTED_SETTINGS"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
@@ -145,7 +145,6 @@
     <uses-permission android:name="android.permission.BIND_CONDITION_PROVIDER_SERVICE" />
     <uses-permission android:name="android.permission.BIND_CONTROLS" />
     <uses-permission android:name="android.permission.BIND_CREDENTIAL_PROVIDER_SERVICE" />
-    <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN" />
     <uses-permission android:name="android.permission.BIND_DREAM_SERVICE" />
     <uses-permission android:name="android.permission.BIND_INCALL_SERVICE" />
     <uses-permission android:name="android.permission.BIND_INPUT_METHOD" />
@@ -344,7 +343,7 @@
     <uses-permission android:name="android.permission.READ_ASSISTANT_APP_SEARCH_DATA" />
     <uses-permission android:name="android.permission.READ_BASIC_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
@@ -462,16 +461,20 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="www.example.com" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="www.baidu.com" />
@@ -507,6 +510,18 @@
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
+        </service>
+        <service
+            android:name=".MyAccessibilityService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/access" />
         </service>
     </application>
 

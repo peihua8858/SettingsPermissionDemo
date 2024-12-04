@@ -1,5 +1,7 @@
 package com.peihua.permissiondemo
 
+import android.Manifest
+import android.accessibilityservice.AccessibilityService
 import android.app.Activity
 import android.app.admin.DeviceAdminReceiver
 import android.content.Context
@@ -10,8 +12,10 @@ import android.os.Bundle
 import android.provider.Settings
 import android.service.notification.NotificationListenerService
 import android.service.vr.VrListenerService
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContract
@@ -192,7 +196,7 @@ class MainActivity : AppCompatActivity() {
         val callback = itemData.jumpIntent
         if (callback != null) {
             try {
-                callback()
+                callback(this)
             } catch (e: Exception) {
                 showToast(e.message ?: "启动失败")
                 if (itemData.isJumpDetail) {
@@ -217,6 +221,7 @@ class MainActivity : AppCompatActivity() {
         }
         val intent = Intent(action)
         intent.data = Uri.parse("package:$packageName")
+        Log.d("MainActivity", "startActivity: mPackageName:"+   intent.data?.schemeSpecificPart)
         try {
             startActivity(intent)
         } catch (e: Exception) {
@@ -236,4 +241,10 @@ class MyDeviceAdminReceiver : DeviceAdminReceiver() {
 
 class NotificationListener : NotificationListenerService() {
     // 其他回调方法...
+}
+
+class MyAccessibilityService : AccessibilityService() {
+    override fun onInterrupt() {}
+
+    override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
 }

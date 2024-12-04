@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PermissionDemo</string>
+    <string name="todesk_accessibility">ToDesk needs to use this service to remotely control your device, but please rest assured that only with your consent can you remotely control your device</string>
 </resources>

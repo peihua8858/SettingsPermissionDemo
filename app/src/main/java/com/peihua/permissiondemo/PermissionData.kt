@@ -2,7 +2,6 @@ package com.peihua.permissiondemo
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlarmManager
 import android.app.AppOpsManager
 import android.app.NotificationManager
 import android.app.admin.DevicePolicyManager
@@ -13,16 +12,17 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.Settings
-import com.fz.common.utils.toBoolean
+import android.text.TextUtils
+
 
 data class PermissionData(
     val name: String,
     val action: String,
     val permission: String,
-    val isSpecial:Boolean = false,
-    val isJumpDetail:Boolean = true,
+    val isSpecial: Boolean = false,
+    val isJumpDetail: Boolean = true,
     val hasPermission: ((Context) -> Boolean)? = null,
-    val jumpIntent: (() -> Unit)? = null
+    val jumpIntent: ((Context) -> Unit)? = null
 ) {
 
 }
@@ -34,8 +34,8 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             "管理APP所有文件访问权限",
             Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
             Manifest.permission.MANAGE_EXTERNAL_STORAGE,
-            true,true,
-            hasPermission ={ context ->
+            true, true,
+            hasPermission = { context ->
                 return@PermissionData Environment.isExternalStorageManager()
             }
         )
@@ -47,7 +47,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             //DevicePolicyManager.setActiveAdmin(mDeviceAdmin.getComponent(), mRefreshing);
             DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN,
             "",
-            true,true,
+            true, true,
             hasPermission = { context ->
                 return@PermissionData isDeviceAdminActive(context)
             }
@@ -70,8 +70,8 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
 //                "android.settings.MANAGE_APP_OVERLAY_PERMISSION",
             Manifest.permission.SYSTEM_ALERT_WINDOW,
-            true,true,
-            hasPermission =  { context ->
+            true, true,
+            hasPermission = { context ->
                 return@PermissionData Settings.canDrawOverlays(context)
             }
         )
@@ -82,13 +82,13 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             //设置代码
             // final NotificationManager mgr = context.getSystemService(NotificationManager.class);
             //        mgr.setNotificationPolicyAccessGranted(pkg, access);
-                Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS,
+            Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS,
 //            "android.settings.NOTIFICATION_POLICY_ACCESS_DETAIL_SETTINGS",
             Manifest.permission.ACCESS_NOTIFICATION_POLICY,
             //isNotificationPolicyAccessGrantedForPackage 判断权限的方法
 //                "android.permission.MANAGE_NOTIFICATIONS",
             //android.permission.MANAGE_NOTIFICATIONS
-            true,true,
+            true, true,
             hasPermission = { context ->
                 return@PermissionData isDndPermissionGranted(context)
             }
@@ -99,7 +99,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             "管理媒体应用",
             Settings.ACTION_REQUEST_MANAGE_MEDIA,
             Manifest.permission.MANAGE_MEDIA,
-            true,true,
+            true, true,
             hasPermission = { context ->
                 return@PermissionData context.checkPermission(Manifest.permission.MANAGE_MEDIA)
             }
@@ -142,7 +142,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             Settings.ACTION_NOTIFICATION_LISTENER_DETAIL_SETTINGS,
 //                Settings.ACTION_APP_NOTIFICATION_SETTINGS,
             Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE,
-            true,true,
+            true, true,
             hasPermission = { context ->
                 return@PermissionData isNotificationListenerEnabled(context)
             }
@@ -155,7 +155,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             "android.settings.PICTURE_IN_PICTURE_SETTINGS",
             "",
             true,
-           hasPermission =  { context ->
+            hasPermission = { context ->
                 return@PermissionData context.checkPermissionByOps(AppOpsManager.OPSTR_PICTURE_IN_PICTURE)
             }
         )
@@ -168,7 +168,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             "android.settings.PREMIUM_SMS_SETTINGS",
             "",
             true,
-            hasPermission = {context ->
+            hasPermission = { context ->
                 return@PermissionData false
             }
         )
@@ -181,7 +181,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             Settings.ACTION_DATA_ROAMING_SETTINGS,
             "",
             true,
-            hasPermission =  {context ->
+            hasPermission = { context ->
                 return@PermissionData false
             }
         )
@@ -203,7 +203,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,
             Manifest.permission.SCHEDULE_EXACT_ALARM,
             true,
-          hasPermission = { context ->
+            hasPermission = { context ->
                 return@PermissionData context.checkPermissionByOps("android:schedule_exact_alarm")
             },
         )
@@ -228,7 +228,7 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             Settings.ACTION_VR_LISTENER_SETTINGS,
             Manifest.permission.BIND_VR_LISTENER_SERVICE,
             true,
-            hasPermission =  { context ->
+            hasPermission = { context ->
                 return@PermissionData isVrListenerEnabled(context)
             }
         )
@@ -240,8 +240,10 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             "android.settings.action.MANAGE_WRITE_SETTINGS",
             Manifest.permission.CHANGE_WIFI_STATE,
             true,
-            hasPermission =  { context ->
-                return@PermissionData context.checkPermissionByOps(/*AppOpsManager.OPSTR_CHANGE_WIFI_STATE*/"android:change_wifi_state")
+            hasPermission = { context ->
+                return@PermissionData context.checkPermissionByOps(/*AppOpsManager.OPSTR_CHANGE_WIFI_STATE*/
+                    "android:change_wifi_state"
+                )
             }
         )
     )
@@ -249,10 +251,12 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
         PermissionData(
             "开启屏幕",
             "android.settings.TURN_SCREEN_ON_SETTINGS",
-            Manifest.permission.TURN_SCREEN_ON,
+            /*Manifest.permission.TURN_SCREEN_ON*/"",
             true,
-            hasPermission =   { context ->
-                return@PermissionData context.checkPermissionByOps(/*AppOpsManager.OPSTR_TURN_SCREEN_ON*/"android:turn_screen_on")
+            hasPermission = { context ->
+                return@PermissionData context.checkPermissionByOps(/*AppOpsManager.OPSTR_TURN_SCREEN_ON*/
+                    "android:turn_screen_on"
+                )
             }
         )
     )
@@ -286,7 +290,8 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             //            userHandle
             //        )
             //    }
-            Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT,
+//            Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT,
+            "",
             Manifest.permission.USE_FULL_SCREEN_INTENT,
             true,
             hasPermission = { context ->
@@ -303,12 +308,12 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
             //isNotificationPolicyAccessGrantedForPackage 判断权限的方法
 //                "android.permission.MANAGE_NOTIFICATIONS",
             //android.permission.MANAGE_NOTIFICATIONS
-            false,false,
-        ){
-            val uri= Uri.parse(Environment.getExternalStorageState()+"/Documents")
+            false, false,
+        ) {
+            val uri = Uri.parse(Environment.getExternalStorageState() + "/Documents")
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent. putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
+            intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uri)
             context.startActivity(intent)
         }
     )
@@ -328,9 +333,58 @@ fun buildSpecialPermissionData(context: Activity): List<PermissionData> {
 //        )
 //    )
 
+    result.add(
+        PermissionData(
+            "辅助功能权限",
+            Settings.ACTION_ACCESSIBILITY_SETTINGS,
+            Manifest.permission.BIND_ACCESSIBILITY_SERVICE,
+            false, false,
+            hasPermission = { context ->
+                val enabledServicesSetting = Settings.Secure.getString(
+                    context.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
+                )
+                if (enabledServicesSetting.isNullOrEmpty()) {
+                    return@PermissionData false
+                }
+                val splitter = TextUtils.SimpleStringSplitter(':')
+                splitter.setString(enabledServicesSetting)
+                while (splitter.hasNext()) {
+                    val componentName = splitter.next()
+                    if (componentName == context.packageName) {
+                        return@PermissionData true
+                    }
+                }
+//                val enabledServices = enabledServicesSetting.split(":")
+//                for (enabledService in enabledServices) {
+//                    if (enabledService.contains(context.packageName)) {
+//                        return@PermissionData true
+//                    }
+//                }
+//                val manager = context.getSystemService(AccessibilityManager::class.java)
+                return@PermissionData false
+            }
+        ) {
+            it.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        }
+    )
 
-
-
+    result.add(
+        PermissionData(
+            "忽略电池优化",
+            Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+            Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+            false, false,
+            { context ->
+                return@PermissionData context.powerManager.isIgnoringBatteryOptimizations(
+                    context.packageName
+                )
+            }) {
+//            it.startActivity(Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS))
+            val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+            intent.data = Uri.parse("package:${it.packageName}")
+            it.startActivity(intent)
+        }
+    )
 
 
 
@@ -353,13 +407,19 @@ private fun isDeviceAdminActive(context: Context): Boolean {
 private fun isNotificationListenerEnabled(context: Context): Boolean {
     val notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    return notificationManager.isNotificationListenerAccessGranted(ComponentName(context, NotificationListener::class.java))
+    return notificationManager.isNotificationListenerAccessGranted(
+        ComponentName(
+            context,
+            NotificationListener::class.java
+        )
+    )
 }
 
 fun isVrListenerEnabled(context: Context): Boolean {
     return context.isContainPermission("enabled_vr_listeners")
 }
-fun Context.isContainPermission(key:String): Boolean {
+
+fun Context.isContainPermission(key: String): Boolean {
     val pkgName = packageName
     val enabledListeners = Settings.Secure.getString(contentResolver, key)
     return enabledListeners != null && enabledListeners.contains(pkgName)
