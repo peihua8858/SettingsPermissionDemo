@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestData() {
-        apiWithAsyncCreated<List<PermissionData>> {
+        apiWithAsyncCreated {
             onRequest {
                 val normalData = readLocalData()
                 val specialData = buildSpecialPermissionData(this@MainActivity)
